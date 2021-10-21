@@ -1,0 +1,66 @@
+import java.util.Comparator;
+import java.util.PriorityQueue;
+class node{
+	int data;
+	node left;
+	node right;
+	char c;
+}
+class comparator implements Comparator<node>{
+
+	@Override
+	public int compare(node o1, node o2) {
+		// TODO Auto-generated method stub
+		return o1.data-o2.data;
+	}
+	
+}
+public class huffmancode {
+ 
+
+	static void print(node root,String s)
+	{
+		if(root.left==null&&root.right==null&&Character.isLetter(root.c))
+		{
+			System.out.println(root.c+" "+s);
+			return;
+		}
+		print(root.left,s+"0");
+		print(root.right,s+"1");
+		
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		int n=6;
+		char ch[]= {'a','b','c','d','e','f'};
+		int f[]= {5,9,12,13,16,45};
+		PriorityQueue<node> p=new PriorityQueue<node>(n,new comparator());
+		for(int i=0;i<n;i++)
+		{
+		node hn=new node();
+		hn.c=ch[i];
+		hn.data=f[i];
+		hn.left=null;
+		hn.right=null;
+		p.add(hn);
+		}
+		node root=null;
+		while(p.size()>1)
+		{
+		node x=p.peek();
+		p.poll();
+		node y=p.peek();
+		p.poll();
+		node z=new node();
+				z.data=x.data+y.data;
+				z.c='-';
+				z.left=x;
+				z.right=y;
+				root=z;
+				p.add(z);
+		}
+print (root," ");
+	}
+	
+}
